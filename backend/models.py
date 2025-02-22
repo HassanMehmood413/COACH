@@ -1,13 +1,20 @@
-# app/models.py
-from sqlalchemy import Table, Column, Integer, String, Text, DateTime, func, JSON
-from database import metadata
+# models.py
+from sqlalchemy import String, Integer, Text, Column, DateTime
+from datetime import datetime
+from base import Base  # Import Base from base.py
 
-conversations = Table(
-    "conversations",
-    metadata,
-    Column("id", Integer, primary_key=True),
-    Column("user_id", String, nullable=False),
-    Column("transcript", Text, nullable=False),
-    Column("analysis", JSON, nullable=True),
-    Column("created_at", DateTime, server_default=func.now()),
-)
+class ConversationLog(Base):
+    __tablename__ = "conversation_logs"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(String)
+    transcript = Column(Text)
+    analysis = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+class User(Base):
+    __tablename__ = "user_information"  # (Using lowercase table name is preferable)
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    email = Column(String, nullable=False)  # Changed from EmailStr to String
+    password = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)

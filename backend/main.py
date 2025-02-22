@@ -2,23 +2,31 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
-import asyncio
 from typing import Dict
 
 from agents import VoiceInputAgent, ConversationSimulatorAgent, FeedbackAgent
 from database import init_db, save_conversation
 
+# Import user routes (adjust the import path as needed)
+from routes import users,authentication
+
 app = FastAPI()
 
-# Mount static assets if needed (for CSS/JS)
-# app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Include your user (and any other) routes
+app.include_router(authentication.router)
+app.include_router(users.router)
+
+
+
+
 
 # Store active connections
 connections: Dict[str, WebSocket] = {}
 
 @app.on_event("startup")
 async def startup():
-    # Initialize NeonDatabase
+    # Initialize the database
     await init_db()
 
 @app.get("/")
@@ -38,6 +46,7 @@ async def websocket_endpoint(websocket: WebSocket):
     feedback_agent = FeedbackAgent()
     
     conversation_history = []
+    user_id = "default_user"  # Replace with actual user identification logic
     
     try:
         while True:
@@ -58,6 +67,9 @@ async def websocket_endpoint(websocket: WebSocket):
                 # Generate feedback
                 feedback = await feedback_agent.process(conversation_history)
                 
+                # Save conversation log
+                await save_conversation(user_id=user_id, transcript=transcription, analysis=feedback)
+                
                 # Send response back to client
                 await websocket.send_json({
                     "transcription": transcription,
@@ -65,7 +77,7 @@ async def websocket_endpoint(websocket: WebSocket):
                     "feedback": feedback
                 })
                 
-                # Send audio response
+                # Send audio response if available
                 if audio_response:
                     await websocket.send_bytes(audio_response)
                 

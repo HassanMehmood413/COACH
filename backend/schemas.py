@@ -1,5 +1,6 @@
 # app/schemas.py
 from pydantic import BaseModel
+from typing import List
 from typing import Optional, Any
 
 class ConversationCreate(BaseModel):
@@ -22,3 +23,35 @@ class ConversationAnalysis(BaseModel):
     confidence_score: float
     key_moments: list
     improvement_areas: list
+
+
+
+
+
+
+class User(BaseModel):
+    name:str
+    email:str    
+    password:str
+
+class ShowUser(BaseModel):
+    name:str
+    email:str
+    class Config():
+        orm_mode = True
+
+
+
+# Authetication 
+class Login(BaseModel):
+    Username:str
+    password:str
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    email: str | None = None
