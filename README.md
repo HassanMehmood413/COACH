@@ -28,7 +28,6 @@ Our AI-powered automation solution transforms marketing strategies by enhancing 
 - CSS
 - JavaScript
 
----
 
 ## Getting Started
 
@@ -50,21 +49,18 @@ Our AI-powered automation solution transforms marketing strategies by enhancing 
      ```bash
      poetry run uvicorn app.main:app --reload
      ```
----
-
-# Four Images Block
-
-Below is a block of four images arranged in a grid:
+     
+## Preview OF OmniBoost
+--- 
 
 <div align="center">
   <table>
     <tr>
-      <td align="center"><img src="https://example.com/image1.png" alt="Image 1" width="200"/></td>
-      <td align="center"><img src="https://example.com/image2.png" alt="Image 2" width="200"/></td>
-    </tr>
-    <tr>
-      <td align="center"><img src="https://example.com/image3.png" alt="Image 3" width="200"/></td>
-      <td align="center"><img src="https://example.com/image4.png" alt="Image 4" width="200"/></td>
+      <td align="center"><img src="Images/dashboard.png" alt="Image 1" width="200"/></td>
+      <td align="center"><img src="Images/login.png" alt="Image 2" width="200"/></td>
+      <td align="center"><img src="Images/voice.png" alt="Image 3" width="200"/></td>
     </tr>
   </table>
 </div>
+
+## Submission Link: [Click Here](https://lablab.ai/event/generative-ai-hackathon-with-ibm-granite/team-x/%F0%9D%97%A2%F0%9D%97%BA%F0%9D%97%BB%F0%9D%97%B6%F0%9D%97%95%F0%9D%97%BC%F0%9D%97%BC%F0%9D%98%80%F0%9D%98%81-your-next-100m-dollar-agent)
