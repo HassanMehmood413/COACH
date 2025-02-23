@@ -18,3 +18,4 @@ class User(Base):
     email = Column(String, nullable=False)  # Changed from EmailStr to String
     password = Column(Text, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
+    facebook_token = Column(String, nullable=True)

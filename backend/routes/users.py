@@ -20,3 +20,9 @@ async def create_user(request: schemas.User, db: AsyncSession = Depends(get_db))
 @router.get('/{id}', response_model=schemas.ShowUser)
 async def get_user(id: int, db: AsyncSession = Depends(get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
     return await user.get_user(id, db)
+
+@router.get('/me', response_model=schemas.ShowUser)
+async def get_current_user(
+    current_user: schemas.User = Depends(oauth2.get_current_user)
+):
+    return current_user

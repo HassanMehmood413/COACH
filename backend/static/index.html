@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Auth Forms -->
+    <div id="authForms" class="auth-container">
+        <div class="auth-box glass-effect">
+            <div class="auth-header">
+                <i class="fas fa-robot"></i>
+                <h2>AI Assistant</h2>
+            </div>
+            
+            <!-- Login Form -->
+            <div id="loginSection" class="auth-section active">
+                <h3>Welcome Back!</h3>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="loginEmail" placeholder="Email">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="loginPassword" placeholder="Password">
+                </div>
+                <button onclick="handleLogin()" class="btn-primary btn-auth">Login</button>
+                <p class="auth-switch">
+                    New user? <a href="#" onclick="toggleAuthForm('signup')">Sign Up</a>
+                </p>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signupSection" class="auth-section">
+                <h3>Create Account</h3>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="signupName" placeholder="Full Name">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="signupEmail" placeholder="Email">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="signupPassword" placeholder="Password">
+                </div>
+                <button onclick="handleSignup()" class="btn-primary btn-auth">Sign Up</button>
+                <p class="auth-switch">
+                    Already have an account? <a href="#" onclick="toggleAuthForm('login')">Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="mainContent" class="main-container hidden">
+        <!-- Top Navigation -->
+        <nav class="navbar glass-effect">
+            <div class="nav-brand">
+                <i class="fas fa-robot"></i>
+                <span>AI Assistant</span>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="nav-link active" data-page="automation">
+                    <i class="fas fa-cogs"></i> Automation
+                </a>
+                <a href="#" class="nav-link" data-page="voice">
+                    <i class="fas fa-microphone"></i> Voice Assistant
+                </a>
+            </div>
+            <div class="nav-profile">
+                <button onclick="handleLogout()" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </nav>
+
+        <!-- Automation Page -->
+        <div id="automationPage" class="page active">
+            <div class="automation-container">
+                <div class="section-header">
+                    <h2><i class="fas fa-cogs"></i> Social Media Automation</h2>
+                    <button class="btn-primary" id="createPostBtn">
+                        <i class="fas fa-plus"></i> Create Post
+                    </button>
+                </div>
+
+                <!-- Social Media Connections -->
+                <div class="connections-grid">
+                    <div class="connection-card glass-effect">
+                        <div class="connection-header">
+                            <i class="fab fa-facebook"></i>
+                            <span>Facebook</span>
+                        </div>
+                        <div class="connection-status" id="fbStatus">Not Connected</div>
+                        <button onclick="authenticateFacebook()" class="btn-connect" id="fbAuthButton">
+                            Connect Facebook
+                        </button>
+                    </div>
+                    <div class="connection-card glass-effect">
+                        <div class="connection-header">
+                            <i class="fab fa-instagram"></i>
+                            <span>Instagram</span>
+                        </div>
+                        <div class="connection-status" id="igStatus">Not Connected</div>
+                        <button onclick="authenticateInstagram()" class="btn-connect">
+                            Connect Instagram
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Scheduled Posts -->
+                <div class="scheduled-posts glass-effect">
+                    <h3><i class="fas fa-calendar"></i> Scheduled Posts</h3>
+                    <div id="scheduledPostsList" class="posts-list">
+                        <!-- Posts will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Voice Assistant Page -->
+        <div id="voicePage" class="page">
+            <div class="voice-container">
+                <div class="section-header">
+                    <h2><i class="fas fa-microphone"></i> Voice Assistant</h2>
+                </div>
+
+                <div class="voice-interface glass-effect">
+                    <div class="chat-container" id="chatContainer">
+                        <!-- Chat messages will appear here -->
+                        <div class="welcome-message">
+                            <i class="fas fa-robot"></i>
+                            <p>Hello! I'm your AI assistant. How can I help you today?</p>
+                        </div>
+                    </div>
+
+                    <div class="voice-controls">
+                        <div class="audio-visualizer" id="audioVisualizer"></div>
+                        <button id="recordButton" class="btn-record" onclick="toggleRecording()">
+                            <i class="fas fa-microphone"></i>
+                            <span>Start Recording</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="voice-commands glass-effect">
+                    <h3>Voice Commands</h3>
+                    <div class="command-list">
+                        <div class="command-item">
+                            <i class="fas fa-pen-to-square"></i>
+                            <div class="command-content">
+                                <span>"Create a post about <strong>[topic]</strong>"</span>
+                                <div class="command-example">
+                                    Example: "Create a post about artificial intelligence"
+                                </div>
+                            </div>
+                            <div class="command-status">Available</div>
+                        </div>
+
+                        <div class="command-item">
+                            <i class="fas fa-image"></i>
+                            <div class="command-content">
+                                <span>"Find images of <strong>[topic]</strong>"</span>
+                                <div class="command-example">
+                                    Example: "Find images of nature landscapes"
+                                </div>
+                            </div>
+                            <div class="command-status">Available</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Toast -->
+    <div id="statusToast" class="status-toast"></div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

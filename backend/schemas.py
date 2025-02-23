@@ -40,6 +40,30 @@ class ShowUser(BaseModel):
     class Config():
         orm_mode = True
 
+# ------------------
+# Social Clients 
+# ------------------
+
+
+class SocialPostRequest(BaseModel):
+    content: str
+    unsplash_image_id: Optional[str] = None
+    image_url: Optional[str] = None
+
+class SEOData(BaseModel):
+    seo_content: str
+    facebook_content: str
+    hashtags: List[str]
+    meta_description: str
+    image_alt: str
+    original_content: str
+
+class SocialPostResponse(BaseModel):
+    success: bool
+    fb_status: str
+    post_url: Optional[str] = None
+    optimized_content: Optional[dict] = None
+
 
 
 # Authetication 
@@ -55,3 +79,10 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     email: str | None = None
+
+class ImageSearchResult(BaseModel):
+    id: str
+    url: str
+    thumb: str
+    description: Optional[str] = None
+    photographer: str
