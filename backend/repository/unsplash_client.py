@@ -3,9 +3,9 @@ import httpx
 from typing import List, Dict, Optional
 
 # Get Unsplash credentials from environment
-UNSPLASH_ACCESS_KEY = os.getenv("UNSPLASH_ACCESS_KEY", "gA7919Wd6jK_5u6XaWR9vEgSeRVSfY8Jr8NaVFh6uCQ")
-UNSPLASH_SECRET_KEY = os.getenv("UNSPLASH_SECRET_KEY", "zgOsFzZaJTmbxAp9XNqIQWCf0A4inb6GNUG04Vh2oH0")
-UNSPLASH_APPLICATION_ID = os.getenv("UNSPLASH_APPLICATION_ID", "713101")
+UNSPLASH_ACCESS_KEY = os.getenv("UNSPLASH_ACCESS_KEY", "")
+UNSPLASH_SECRET_KEY = os.getenv("UNSPLASH_SECRET_KEY", "")
+UNSPLASH_APPLICATION_ID = os.getenv("UNSPLASH_APPLICATION_ID", "")
 
 async def search_images(query: str, per_page: int = 5) -> List[Dict[str, str]]:
     """
