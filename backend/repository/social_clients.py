@@ -9,8 +9,8 @@ import urllib.parse
 
 class SocialMediaManager:
     def __init__(self):
-        self.facebook_app_id = "609870711852529"
-        self.facebook_app_secret = "c00422746163b887358b3c83a2435c0e"
+        self.facebook_app_id = os.getenv("FB_ID")
+        self.facebook_app_secret = os.getenv("FB_Secret")
         self.redirect_uri = "http://localhost:8000/auth/facebook/callback"
         self.fb_api_version = "v18.0"  # For URL endpoints
         self.graph_api_version = "2.12"  # For Graph API initialization
